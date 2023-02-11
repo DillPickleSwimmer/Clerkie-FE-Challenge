@@ -1,0 +1,13 @@
+.layout {
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex; 
+}
+
+.layout main {
+    height: 100vh; 
+    overflow: scroll; 
+
+    flex-grow: 1;
+}
