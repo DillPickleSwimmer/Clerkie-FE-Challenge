@@ -1,7 +1,8 @@
-import React from "react";
-import styles from "@/styles/Popover.module.css";
-import Icon from "@/components/Icon";
-import { IconTypes } from "./Icon";
+import React from 'react';
+import styles from '@/styles/Popover.module.css';
+import Icon from '@/components/Icon';
+import { IconTypes } from './Icon';
+import memoWithPropsObj from '@/utils/memoWithPropsObj';
 
 type Props = {
     children: React.ReactNode;
@@ -16,14 +17,7 @@ type Props = {
 };
 
 // Generic popover component
-export default function Popover({
-    children,
-    header,
-    trigger,
-    initOpen,
-    onClose,
-    onOpen,
-}: Props) {
+function Popover({ children, header, trigger, initOpen, onClose, onOpen }: Props) {
     const [open, setOpen] = React.useState(initOpen);
     const ref = React.useRef(null);
     const triggerRef = React.useRef(null);
@@ -41,19 +35,19 @@ export default function Popover({
             }
         }
 
-        document.addEventListener("click", handleOutside, {
+        document.addEventListener('click', handleOutside, {
             capture: true,
             passive: true,
         });
-        document.addEventListener("scroll", handleOutside, {
+        document.addEventListener('scroll', handleOutside, {
             once: true,
             capture: true,
             passive: true,
         });
 
         return () => {
-            document.removeEventListener("click", handleOutside);
-            document.removeEventListener("scroll", handleOutside);
+            document.removeEventListener('click', handleOutside);
+            document.removeEventListener('scroll', handleOutside);
         };
     }, [setOpen]);
 
@@ -75,11 +69,17 @@ export default function Popover({
 
     return (
         <>
-            <div onClick={() => setOpen(!open)} ref={triggerRef}>
+            <div
+                onClick={() => setOpen(!open)}
+                ref={triggerRef}
+            >
                 {trigger}
             </div>
             {open && (
-                <div className={styles.popover} ref={ref}>
+                <div
+                    className={styles.popover}
+                    ref={ref}
+                >
                     {header && (
                         <div className={styles.header}>
                             <span>{header.left}</span>
@@ -100,3 +100,5 @@ export default function Popover({
         </>
     );
 }
+
+export default memoWithPropsObj(Popover);

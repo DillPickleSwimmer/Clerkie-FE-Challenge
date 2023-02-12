@@ -21,7 +21,9 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/styles/*": ["styles/*"],
-      "@/icons/*": ["public/icons/*"]
+      "@/icons/*": ["public/icons/*"],
+      "@/utils/*": ["utils/*"],
+      "@/types/*": ["types/*"]
     }
   },
   "include": [

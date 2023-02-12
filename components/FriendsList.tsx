@@ -1,20 +1,22 @@
-import type { Filters } from "@/components/FilterPopover";
+import type { Filters } from '@/types/Filters';
+import type { FriendType } from '@/types/FriendType';
 
-import Friend from "@/components/Friend";
-import FilterPopover from "@/components/FilterPopover";
-import FriendShimmer from "@/components/FriendShimmer";
+import Friend from '@/components/Friend';
+import FilterPopover from '@/components/FilterPopover';
+import FriendShimmer from '@/components/FriendShimmer';
 
-import styles from "@/styles/FriendsList.module.css";
+import styles from '@/styles/FriendsList.module.css';
 
-import React from "react";
+import React from 'react';
 
 const LOAD_MORE_OFFSET = 200;
 const LOAD_DELAY = 500;
 
 // Display the list of friends queried from the API & apply filters to them
 export default function FriendsList() {
+    // TODO handle error state
     const [filters, setFilters] = React.useState<Filters>([]);
-    const [friends, setFriends] = React.useState([]);
+    const [friends, setFriends] = React.useState<Array<FriendType>>([]);
     const [page, setPage] = React.useState(1);
     const [loading, setLoading] = React.useState(false);
     const [hasMorePages, setHasMorePages] = React.useState(true);
@@ -26,23 +28,17 @@ export default function FriendsList() {
     // whenever the page changes or the filter changes, we need to make another query for data
     React.useEffect(() => {
         setLoading(true);
-        fetch(
-            `/api/friends?page=${page}&numPerPage=${numPerPage}&filters=${JSON.stringify(
-                filters
-            )}`,
-            { method: "GET", cache: "no-cache" }
-        )
+        fetch(`/api/friends?page=${page}&numPerPage=${numPerPage}&filters=${JSON.stringify(filters)}`, {
+            method: 'GET',
+            cache: 'no-cache',
+        })
             .then((res) => res.json())
             .then((res) => {
                 // this timeout is not necessary, it's just so we can see the loading shimmer for this project
                 setTimeout(() => {
                     const newFriends = [...friends];
                     // replace the page of friends (in case a double query happens for some reason)
-                    newFriends.splice(
-                        (page - 1) * numPerPage,
-                        numPerPage,
-                        ...res.page
-                    );
+                    newFriends.splice((page - 1) * numPerPage, numPerPage, ...res.page);
                     setFriends(newFriends);
                     setHasMorePages(res.hasMorePages);
                 }, LOAD_DELAY);
@@ -59,27 +55,25 @@ export default function FriendsList() {
 
         const onScroll = function () {
             const position = friendList.getBoundingClientRect();
-            if (
-                hasMorePages &&
-                !loading &&
-                position.bottom - LOAD_MORE_OFFSET <= window.innerHeight
-            ) {
+            if (hasMorePages && !loading && position.bottom - LOAD_MORE_OFFSET <= window.innerHeight) {
                 setPage(page + 1);
             }
         };
-        document.addEventListener("scroll", onScroll, {
+        document.addEventListener('scroll', onScroll, {
             capture: true,
             passive: true,
         });
-        return () => document.removeEventListener("scroll", onScroll);
+        return () => {
+            document.removeEventListener('scroll', onScroll);
+        };
     }, [hasMorePages, loading, page, setPage]);
 
     // when filter changes, reset the friends and page
-    const setFiltersWrapped = (filters) => {
+    const setFiltersWrapped = React.useCallback((filters) => {
         setFriends([]);
         setPage(1);
         setFilters(filters);
-    };
+    }, []);
 
     return (
         <>
@@ -101,17 +95,18 @@ export default function FriendsList() {
                     </button>
                 </span>
             </div>
-            <div ref={friendListRef} className={styles.friendsList}>
-                {friends.map((friend) => (
-                    <Friend key={friend.id} friend={friend} />
+            <div
+                ref={friendListRef}
+                className={styles.friendsList}
+            >
+                {friends.map((friend, i) => (
+                    <Friend
+                        key={friend.id + i}
+                        friend={friend}
+                    />
                 ))}
-                {loading &&
-                    new Array(numPerPage)
-                        .fill(false)
-                        .map((_, i) => <FriendShimmer key={"shimmer" + i} />)}
-                {!hasMorePages && (
-                    <div className={styles.noMore}>No more friends ☹...</div>
-                )}
+                {loading && new Array(numPerPage).fill(false).map((_, i) => <FriendShimmer key={'shimmer' + i} />)}
+                {!hasMorePages && <div className={styles.noMore}>No more friends ☹...</div>}
             </div>
         </>
     );

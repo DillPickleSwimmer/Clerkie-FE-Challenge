@@ -1,17 +1,18 @@
-import { FriendStatus } from "@/components/Friend";
-import Icon, { IconTypes } from "@/components/Icon";
-import Popover from "@/components/Popover";
+import type Filters from '@/types/Filters';
 
-import styles from "@/styles/FilterPopover.module.css";
+import Icon, { IconTypes } from '@/components/Icon';
+import Popover from '@/components/Popover';
 
-import React from "react";
+import styles from '@/styles/FilterPopover.module.css';
+import { FriendStatus } from '@/types/FriendType';
+import memoWithPropsObj from '@/utils/memoWithPropsObj';
+
+import React from 'react';
 
 const FILTERS: Array<[FriendStatus, string]> = [
-    [FriendStatus.close, "Close Friends"],
-    [FriendStatus.superClose, "Really Close Friends"],
+    [FriendStatus.close, 'Close Friends'],
+    [FriendStatus.superClose, 'Really Close Friends'],
 ];
-
-export type Filters = Array<FriendStatus>;
 
 type Props = {
     clearAllButtonStyle: string;
@@ -22,11 +23,7 @@ type Props = {
 // TODO: make the checkmark match
 
 // Shows a popover that lets the user set the filters
-export default function FilterPopover({
-    clearAllButtonStyle,
-    initialFilters,
-    onApply,
-}: Props) {
+function FilterPopover({ clearAllButtonStyle, initialFilters, onApply }: Props) {
     const [filters, setFilters] = React.useState(initialFilters);
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -38,7 +35,7 @@ export default function FilterPopover({
     return (
         <Popover
             header={{
-                title: "Filter",
+                title: 'Filter',
                 left: (
                     <button
                         className={clearAllButtonStyle}
@@ -56,15 +53,14 @@ export default function FilterPopover({
                 <button
                     className={[
                         styles.filterButton,
-                        isOpen || initialFilters.length > 0
-                            ? styles.selected
-                            : undefined,
-                    ].join(" ")}
+                        isOpen || initialFilters.length > 0 ? styles.selected : undefined,
+                    ].join(' ')}
                 >
-                    <Icon size={20} iconType={IconTypes.filter} />
-                    {initialFilters.length > 0 ? (
-                        <span>{initialFilters.length}</span>
-                    ) : undefined}
+                    <Icon
+                        size={20}
+                        iconType={IconTypes.filter}
+                    />
+                    {initialFilters.length > 0 ? <span>{initialFilters.length}</span> : undefined}
                 </button>
             }
         >
@@ -72,7 +68,10 @@ export default function FilterPopover({
                 <div className={styles.filterPopoverContent}>
                     <div className={styles.filterTitle}>Friend Status</div>
                     {FILTERS.map(([status, label], i) => (
-                        <div key={i} className={styles.filter}>
+                        <div
+                            key={i}
+                            className={styles.filter}
+                        >
                             <label htmlFor={status.toString()}>{label}</label>
                             <input
                                 id={status.toString()}
@@ -82,11 +81,7 @@ export default function FilterPopover({
                                     if (e.target.checked) {
                                         setFilters([...filters, status]);
                                     } else {
-                                        setFilters(
-                                            [...filters].filter(
-                                                (f) => f !== status
-                                            )
-                                        );
+                                        setFilters([...filters].filter((f) => f !== status));
                                     }
                                 }}
                             />
@@ -106,3 +101,5 @@ export default function FilterPopover({
         </Popover>
     );
 }
+
+export default memoWithPropsObj(FilterPopover);
