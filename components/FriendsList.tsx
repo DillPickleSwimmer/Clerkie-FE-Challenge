@@ -78,16 +78,6 @@ export default function FriendsList() {
     const [filters, setFilters] = React.useState<Filters>([]);
     const numFiltersSelected = filters.length; 
 
-    const clearAllButton = (
-        <button 
-            className={styles.clearAllFilters}
-            disabled={filters.length === 0}
-            onClick={() => setFilters([])}
-        >
-            Clear all
-        </button>
-    );
-
     return (
         <>
             <div className={styles.filters}>
@@ -101,12 +91,18 @@ export default function FriendsList() {
                     </button>
                 </span>
                 <span className={styles.clearAllFiltersWrapper}>
-                    {clearAllButton}
+                    <button 
+                        className={styles.clearAllFilters}
+                        disabled={filters.length === 0}
+                        onClick={() => setFilters([])}
+                    >
+                        Clear all
+                    </button>
                 </span>
             </div>
             {filtersOpen && <div>
                 <FilterPopover 
-                    clearAllButton={clearAllButton} 
+                    clearAllButtonStyle={styles.clearAllFilters} 
                     initialFilters={filters}
                     onClose={() => setFiltersOpen(false)} 
                     onApply={setFilters}

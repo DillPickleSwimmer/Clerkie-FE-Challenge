@@ -10,7 +10,7 @@ const FILTERS: Array<[FriendStatus, string]> = [
 
 export type Filters = Array<FriendStatus>
 type Props = {
-    clearAllButton: React.ReactNode, 
+    clearAllButtonStyle: string, 
     initialFilters: Filters
     onClose: () => void, 
     onApply: (filters: Filters) => void 
@@ -18,14 +18,14 @@ type Props = {
 
 // TODO: make the checkmark match
 
-export default function FilterPopover({clearAllButton, initialFilters, onClose, onApply}: Props) {
+export default function FilterPopover({clearAllButtonStyle, initialFilters, onClose, onApply}: Props) {
     const [filters, setFilters] = React.useState(initialFilters);
 
     return (
         <Popover 
             header={{
                 title: 'Filter',
-                left: clearAllButton
+                left: <button className={clearAllButtonStyle} disabled={filters.length === 0} onClick={() => setFilters([])}>Clear all</button>
             }} 
             onClose={onClose}
         >
