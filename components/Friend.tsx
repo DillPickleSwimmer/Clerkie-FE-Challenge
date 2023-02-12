@@ -1,26 +1,16 @@
 import memoWithPropsObj from '@/utils/memoWithPropsObj';
+import FriendType, { FriendStatus } from '@/types/FriendType';
+import FriendStatusIcon from '@/components/FriendStatusIcon';
 
 import styles from '@/styles/Friend.module.css';
 
 import React from 'react';
 import Link from 'next/link';
-import FriendType, { FriendStatus } from '@/types/FriendType';
 
-type Props = { status: FriendStatus };
-
-function FriendStatusIcon({ status }: Props) {
-    switch (status) {
-        case FriendStatus.close:
-            return <span className={[styles.status, styles.closeFriends].join(' ')}>Close Friends</span>;
-        case FriendStatus.superClose:
-            return <span className={[styles.status, styles.superCloseFriends].join(' ')}>Super Close Friends</span>;
-        default:
-            return null;
-    }
-}
+type Props = { friend: FriendType };
 
 // Display a friend details row
-function Friend({ friend }: { friend: FriendType }) {
+function Friend({ friend }: Props) {
     return (
         <Link
             className={styles.friend}
