@@ -29,9 +29,10 @@ export default function FriendsList() {
 
     React.useEffect(() => {
         setLoading(true);
-        fetch(`/api/friends?page=${page}&numPerPage=${numPerPage}&filters=${filters}`, {method: 'GET'})
+        fetch(`/api/friends?page=${page}&numPerPage=${numPerPage}&filters=${JSON.stringify(filters)}`, {method: 'GET', cache: 'no-cache'})
             .then(res => res.json())
             .then(res => {
+                console.log(res, friends);
                 setTimeout(() => {
                     setFriends([...friends, ...res.page]);
                     setHasMorePages(res.hasMorePages);
@@ -41,7 +42,7 @@ export default function FriendsList() {
             .finally(() => setTimeout(() => setLoading(false), LOAD_DELAY));
     // We don't want to query when the friends changes, just when the page changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page]);
+    }, [page, filters]);
 
     React.useEffect(() => {
         const friendList = friendListRef.current;
@@ -56,6 +57,12 @@ export default function FriendsList() {
         return () => document.removeEventListener('scroll', onScroll);
     }, [hasMorePages, loading, page, setPage]);
 
+    const setFiltersWrapped = (filters) => {
+        setFriends([]);
+        setPage(1); 
+        setFilters(filters);
+    }
+
     return (
         <>
             <div className={styles.filters}>
@@ -63,14 +70,14 @@ export default function FriendsList() {
                     <FilterPopover 
                         clearAllButtonStyle={styles.clearAllFilters} 
                         initialFilters={filters}
-                        onApply={setFilters}
+                        onApply={setFiltersWrapped}
                     />
                 </span>
                 <span className={styles.clearAllFiltersWrapper}>
                     <button 
                         className={styles.clearAllFilters}
                         disabled={filters.length === 0}
-                        onClick={() => setFilters([])}
+                        onClick={() => setFiltersWrapped([])}
                     >
                         Clear all
                     </button>

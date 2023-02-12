@@ -12,12 +12,18 @@ export default function handler(req: NextRequest) {
         const { searchParams } = new URL(req.url)
         const page = parseInt(searchParams.get('page'));
         const numPerPage = parseInt(searchParams.get('numPerPage'));
-        // const filters = JSON.parse(searchParams.get('filters'));
+        const filters = JSON.parse(searchParams.get('filters'));
+
+        console.log(filters);
+
+        const filteredFriends = filters.length > 0 ? MOCK_FRIENDS.filter(friend => filters.some(filter => filter === friend.status)) : MOCK_FRIENDS;
+
+        console.log(filteredFriends);
 
         return new Response(
             JSON.stringify({
-                hasMorePages: (page * numPerPage) <= MOCK_FRIENDS.length,
-                page: MOCK_FRIENDS.slice((page - 1) * numPerPage, page * numPerPage)
+                hasMorePages: (page * numPerPage) <= filteredFriends.length,
+                page: filteredFriends.slice((page - 1) * numPerPage, page * numPerPage)
             }), 
             {
                 status: 200, 
