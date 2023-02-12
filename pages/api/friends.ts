@@ -14,11 +14,7 @@ export default function handler(req: NextRequest) {
         const numPerPage = parseInt(searchParams.get('numPerPage'));
         const filters = JSON.parse(searchParams.get('filters'));
 
-        console.log(filters);
-
         const filteredFriends = filters.length > 0 ? MOCK_FRIENDS.filter(friend => filters.some(filter => filter === friend.status)) : MOCK_FRIENDS;
-
-        console.log(filteredFriends);
 
         return new Response(
             JSON.stringify({

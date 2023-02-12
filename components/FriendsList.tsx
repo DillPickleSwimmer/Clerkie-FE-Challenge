@@ -86,7 +86,7 @@ export default function FriendsList() {
                 </span>
             </div>
             <div ref={friendListRef} className={styles.friendsList}>
-                {friends.map((friend, i) => <Friend key={i} friend={friend}/>)}
+                {friends.map((friend) => <Friend key={friend.id} friend={friend}/>)}
                 {loading && new Array(numPerPage).fill(false).map((_, i) => <FriendShimmer key={'shimmer' + i}/>)}
                 {!hasMorePages && <div className={styles.noMore}>No more friends ☹...</div>}
             </div>
