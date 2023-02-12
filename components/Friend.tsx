@@ -1,14 +1,13 @@
 import React from 'react';
 import styles from '@/styles/Friend.module.css';
 
-enum FriendStatus {
+export enum FriendStatus {
     normal, 
     close,
     superClose
 }
 
-
-type Friend = {
+export type FriendType = {
     name: string, 
     email: string, 
     phone: number, 

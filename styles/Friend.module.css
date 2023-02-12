@@ -32,13 +32,13 @@
 }
 
 .status.closeFriends {
-    color: #3399FF;
-    background-color: #DFEFFF;
+    color: var(--blue);
+    background-color: var(--light-blue);
 }
 
 .status.superCloseFriends {
-    color: #19B444;
-    background-color: #DCFFE6;
+    color: var(--green);
+    background-color: var(--light-green);
 }
 
 .details {

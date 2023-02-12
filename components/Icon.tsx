@@ -4,7 +4,8 @@ export enum IconTypes {
     filter, 
     friends, 
     home, 
-    logo
+    logo,
+    close,
 }
 
 function getIconSvg(iconType: IconTypes): JSX.Element {
@@ -38,6 +39,11 @@ function getIconSvg(iconType: IconTypes): JSX.Element {
                 <path d="M13.6032 11.435C14.3826 11.435 15.0297 10.8026 15.0297 10.0085C15.0297 9.21438 14.3973 8.58203 13.6032 8.58203C12.8091 8.58203 12.1768 9.21438 12.1768 10.0085C12.1768 10.8026 12.8238 11.435 13.6032 11.435Z" fill="#59A2F6"/>
                 <path d="M9.97139 11.435C10.7508 11.435 11.3979 10.8026 11.3979 10.0085C11.3979 9.21438 10.7655 8.58203 9.97139 8.58203C9.17728 8.58203 8.54492 9.21438 8.54492 10.0085C8.54492 10.8026 9.17728 11.435 9.97139 11.435Z" fill="#4480C2"/>
                 <path d="M6.33858 11.435C7.11799 11.435 7.76505 10.8026 7.76505 10.0085C7.76505 9.21438 7.1327 8.58203 6.33858 8.58203C5.54446 8.58203 4.91211 9.21438 4.91211 10.0085C4.91211 10.7879 5.54446 11.435 6.33858 11.435Z" fill="#375D86"/>
+            </>;
+        case IconTypes.close:
+            return <>
+                <path d="M4 4L13 13" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 4L4 13" stroke-width="2" stroke-linecap="round"/>
             </>;
         default: 
             return null;

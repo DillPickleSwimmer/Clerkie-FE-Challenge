@@ -5,15 +5,24 @@
   --text-disabled: var(--disabled); 
   --text-active: #3399FF;
 
+  --background-color: white; 
   --dark-background: #091928; 
   --dark-background-text: white;
   
   --selected: #424242;
   --disabled:  #D7D7D7;
 
+  --blue: #3399FF; 
+  --light-blue: #DFEFFF;
+  --green: #19B444;
+  --light-green: #DCFFE6;
+
   font-family: 'Inter', sans-serif;
   font-size: 16px;
+  font-weight: 500;
   color: var(--text-primary);
+
+  background-color: var(--background-color);
 }
 
 /* @media (prefers-color-scheme: dark) {

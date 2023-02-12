@@ -11,7 +11,7 @@
     display: inline-flex; 
     align-items: center;
 
-    border: 1px solid #ABABAB;
+    border: 1px solid var(--text-secondary);
     border-radius: 30px;
 }
 
@@ -37,16 +37,11 @@
     font-weight: 600;
 }
 
-.clearAllFilters:hover {
-    text-decoration: underline;
-}
-
 .clearAllFilters:disabled {
     color: var(--text-disabled);
 }
 
 .clearAllFilters:disabled:hover {
-    text-decoration: none;
     cursor: inherit;
 }
 

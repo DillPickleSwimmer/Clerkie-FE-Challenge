@@ -1,24 +1,16 @@
 
+import type { FriendType } from '@/components/Friend';
+import type {Filters} from '@/components/FilterPopover';
+
 import React from "react";
 import styles from '@/styles/FriendsList.module.css';
 import Icon from '@/components/Icon';
 import { IconTypes } from "@/components/Icon";
-import Friend from '@/components/Friend';
+import Friend, {FriendStatus} from '@/components/Friend';
+import Popover from "./Popover";
+import FilterPopover from "./FilterPopover";
 
-enum FriendStatus {
-    normal, 
-    close,
-    superClose
-}
-
-type Friend = {
-    name: string, 
-    email: string, 
-    phone: number, 
-    status: FriendStatus
-}
-
-const MOCK_FRIENDS: Array<Friend> = [
+const MOCK_FRIENDS: Array<FriendType> = [
     {
         name: "Sally Cooper",
         email: "sallycooper@gmail.com",
@@ -83,30 +75,43 @@ const MOCK_FRIENDS: Array<Friend> = [
 
 export default function FriendsList() {
     const [filtersOpen, setFiltersOpen] = React.useState(false); 
-    const [filters, setFilters] = React.useState([1]);
+    const [filters, setFilters] = React.useState<Filters>([]);
+    const numFiltersSelected = filters.length; 
+
+    const clearAllButton = (
+        <button 
+            className={styles.clearAllFilters}
+            disabled={filters.length === 0}
+            onClick={() => setFilters([])}
+        >
+            Clear all
+        </button>
+    );
 
     return (
         <>
             <div className={styles.filters}>
                 <span>
                     <button 
-                        className={[styles.filterButton, filtersOpen || filters.length > 0 ? styles.selected : undefined].join(" ")}
+                        className={[styles.filterButton, filtersOpen || numFiltersSelected > 0 ? styles.selected : undefined].join(" ")}
                         onClick={() => setFiltersOpen(!filtersOpen)}
                     >
                         <Icon size={20} iconType={IconTypes.filter}/>
-                        {filters.length > 0 ? <span>{filters.length}</span> : undefined}
+                        {numFiltersSelected > 0 ? <span>{numFiltersSelected}</span> : undefined}
                     </button>
                 </span>
                 <span className={styles.clearAllFiltersWrapper}>
-                    <button 
-                        className={styles.clearAllFilters}
-                        disabled={filters.length === 0}
-                        onClick={() => setFilters([])}
-                    >
-                        Clear all
-                    </button>
+                    {clearAllButton}
                 </span>
             </div>
+            {filtersOpen && <div>
+                <FilterPopover 
+                    clearAllButton={clearAllButton} 
+                    initialFilters={filters}
+                    onClose={() => setFiltersOpen(false)} 
+                    onApply={setFilters}
+                />
+            </div>}
             <div>
                 {MOCK_FRIENDS.map((friend, i) => <Friend key={i} friend={friend}/>)}
             </div>

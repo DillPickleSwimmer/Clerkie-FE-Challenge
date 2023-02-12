@@ -1,0 +1,44 @@
+.popover {
+    position: absolute;
+    width: 320px; 
+
+    background-color: var(--background-color);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+.header {
+    height: 60px;
+    padding: 20px;
+
+    display: flex; 
+    align-items: center;
+
+    border-bottom: 1px solid var(--disabled);
+}
+
+.header > * {
+    flex-grow: 1;
+    display: flex; 
+    justify-content: center;
+    flex-basis: 0;
+}
+
+.header > *:first-child {
+    justify-content: flex-start;
+}
+
+.header > .title {
+    flex-grow: 2;
+
+    font-weight: 600;
+}
+
+.header > *:last-child {
+    display: flex; 
+    justify-content: flex-end;
+}
+
+.content {
+    padding: 16px 10px;
+}
