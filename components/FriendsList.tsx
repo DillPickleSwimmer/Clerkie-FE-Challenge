@@ -15,7 +15,7 @@ const LOAD_MORE_OFFSET = 200;
 const APPROX_ROW_HEIGHT = 130;
 
 // This delay isn't really needed, I just added it so we can see the loading shimmer (otherwise it loads too fast)
-const LOAD_DELAY = 300;
+const LOAD_DELAY = 500;
 
 export default function FriendsList() {
     const [filters, setFilters] = React.useState<Filters>([]);
