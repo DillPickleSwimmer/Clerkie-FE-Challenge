@@ -12,27 +12,25 @@ import FilterPopover from "@/components/FilterPopover";
 import FriendShimmer from '@/components/FriendShimmer';
 
 const LOAD_MORE_OFFSET = 200;
+const APPROX_ROW_HEIGHT = 130;
 
 // This delay isn't really needed, I just added it so we can see the loading shimmer (otherwise it loads too fast)
-const LOAD_DELAY = 500;
+const LOAD_DELAY = 300;
 
 export default function FriendsList() {
     const [filters, setFilters] = React.useState<Filters>([]);
-    const numFiltersSelected = filters.length; 
-
-    const numPerPage = 10;
     const [friends, setFriends] = React.useState([]);
     const friendListRef = React.useRef(null);
     const [page, setPage] = React.useState(1); 
     const [loading, setLoading] = React.useState(false);
     const [hasMorePages, setHasMorePages] = React.useState(true);
+    const numPerPage = 20;
 
     React.useEffect(() => {
         setLoading(true);
         fetch(`/api/friends?page=${page}&numPerPage=${numPerPage}&filters=${JSON.stringify(filters)}`, {method: 'GET', cache: 'no-cache'})
             .then(res => res.json())
             .then(res => {
-                console.log(res, friends);
                 setTimeout(() => {
                     const newFriends = [...friends]
                     newFriends.splice((page - 1) * numPerPage, numPerPage, ...res.page);
