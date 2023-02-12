@@ -12,6 +12,8 @@ import FilterPopover from "@/components/FilterPopover";
 import FriendShimmer from '@/components/FriendShimmer';
 
 const LOAD_MORE_OFFSET = 200;
+
+// This delay isn't really needed, I just added it so we can see the loading shimmer (otherwise it loads too fast)
 const LOAD_DELAY = 500;
 
 export default function FriendsList() {
@@ -28,10 +30,13 @@ export default function FriendsList() {
 
     React.useEffect(() => {
         setLoading(true);
-        fetch(`/api/friends?page=${page}`, {method: 'GET'})
+        fetch(`/api/friends?page=${page}&numPerPage=${numPerPage}&filters=${filters}`, {method: 'GET'})
             .then(res => res.json())
             .then(res => {
-                setTimeout(() => setFriends([...friends, ...res]), LOAD_DELAY);
+                setTimeout(() => {
+                    setFriends([...friends, ...res.page]);
+                    setHasMorePages(res.hasMorePages);
+                }, LOAD_DELAY);
             })
             .catch(e => console.log(e))
             .finally(() => setTimeout(() => setLoading(false), LOAD_DELAY));
@@ -85,6 +90,7 @@ export default function FriendsList() {
             <div ref={friendListRef}>
                 {friends.map((friend, i) => <Friend key={i} friend={friend}/>)}
                 {loading && new Array(numPerPage).fill(false).map((_, i) => <FriendShimmer key={'shimmer' + i}/>)}
+                {!hasMorePages && <div className={styles.noMore}>No more friends ☹...</div>}
             </div>
         </>
     );

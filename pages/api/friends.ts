@@ -11,11 +11,14 @@ export default function handler(req: NextRequest) {
     if(req.method === "GET") {
         const { searchParams } = new URL(req.url)
         const page = parseInt(searchParams.get('page'));
-        //const numPerPage = searchParams.get('numPerPage');
-        const numPerPage = 10;
+        const numPerPage = parseInt(searchParams.get('numPerPage'));
+        // const filters = JSON.parse(searchParams.get('filters'));
 
         return new Response(
-            JSON.stringify(MOCK_FRIENDS.slice((page - 1) * numPerPage, (page) * numPerPage)), 
+            JSON.stringify({
+                hasMorePages: (page * numPerPage) <= MOCK_FRIENDS.length,
+                page: MOCK_FRIENDS.slice((page - 1) * numPerPage, page * numPerPage)
+            }), 
             {
                 status: 200, 
                 headers: {

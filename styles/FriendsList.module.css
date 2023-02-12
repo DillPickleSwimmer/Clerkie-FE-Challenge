@@ -45,3 +45,11 @@
     cursor: inherit;
 }
 
+.noMore {
+    margin-top: 30px;
+
+    text-align: center;
+    color: var(--text-secondary); 
+    font-size: 14px;
+}
+
