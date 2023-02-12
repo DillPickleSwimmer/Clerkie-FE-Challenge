@@ -22,6 +22,10 @@ export default function FilterPopover({clearAllButtonStyle, initialFilters, onAp
     const [filters, setFilters] = React.useState(initialFilters);
     const [isOpen, setIsOpen] = React.useState(false);
 
+    React.useEffect(() => {
+        setFilters(initialFilters);
+    }, [initialFilters]);
+
     return (
         <Popover 
             header={{

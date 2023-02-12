@@ -34,7 +34,9 @@ export default function FriendsList() {
             .then(res => {
                 console.log(res, friends);
                 setTimeout(() => {
-                    setFriends([...friends, ...res.page]);
+                    const newFriends = [...friends]
+                    newFriends.splice((page - 1) * numPerPage, numPerPage, ...res.page);
+                    setFriends(newFriends);
                     setHasMorePages(res.hasMorePages);
                 }, LOAD_DELAY);
             })
@@ -58,6 +60,8 @@ export default function FriendsList() {
     }, [hasMorePages, loading, page, setPage]);
 
     const setFiltersWrapped = (filters) => {
+        // const filteredFriends = filters.length > 0 ? friends.filter(friend => filters.some(filter => filter === friend.status)) : friends;
+        // setFriends(filteredFriends);
         setFriends([]);
         setPage(1); 
         setFilters(filters);
