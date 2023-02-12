@@ -3,9 +3,13 @@
   font-family: 'Inter', sans-serif;
   font-size: 16px;
 
+  --text-disabled: #D7D7D7; 
+  --text-active: #3399FF;
+
   --dark-background: #091928; 
   --dark-background-text: white;
-  --dark-background-selected: #424242;
+  
+  --selected: #424242;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -29,4 +33,14 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  all: inherit; 
+  background-color: transparent; 
+  border: none; 
+}
+
+button:hover {
+  cursor: pointer;
 }

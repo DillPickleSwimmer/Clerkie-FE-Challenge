@@ -1,0 +1,52 @@
+.filters {
+    margin-bottom: 25px;
+
+    display: flex; 
+    align-items: stretch;
+}
+
+.filterButton {
+    padding: 8px 20px;
+    
+    display: inline-flex; 
+    align-items: center;
+
+    border: 1px solid #ABABAB;
+    border-radius: 30px;
+}
+
+.filterButton span {
+    margin-left: 10px;
+}
+
+.filterButton.selected, .filterButton.selected img {
+    background-color: var(--selected);
+    border-color: var(--selected);
+    color: var(--dark-background-text);
+}
+
+.clearAllFiltersWrapper {
+    margin: 5px 15px;
+
+    border-left: 1px solid var(--text-disabled);
+}
+
+.clearAllFilters {
+    color: var(--text-active); 
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.clearAllFilters:hover {
+    text-decoration: underline;
+}
+
+.clearAllFilters:disabled {
+    color: var(--text-disabled);
+}
+
+.clearAllFilters:disabled:hover {
+    text-decoration: none;
+    cursor: inherit;
+}
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import Navbar from './Navbar';
-import styles from './Layout.module.css';
+import Navbar from '@/components/Navbar';
+import styles from '@/styles/Layout.module.css';
 
 export default function Layout({children}) {
     return (

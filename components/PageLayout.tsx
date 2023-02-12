@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import styles from './PageLayout.module.css';
+import styles from '@/styles/PageLayout.module.css';
 
 export default function PageLayout({title, children}: {title: string, children: ReactNode}) {
     return (
