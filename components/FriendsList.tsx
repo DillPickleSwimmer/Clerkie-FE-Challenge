@@ -8,75 +8,49 @@ import Icon from '@/components/Icon';
 import { IconTypes } from "@/components/Icon";
 import Friend, {FriendStatus} from '@/components/Friend';
 import Popover from "./Popover";
-import FilterPopover from "./FilterPopover";
+import FilterPopover from "@/components/FilterPopover";
+import FriendShimmer from '@/components/FriendShimmer';
 
-const MOCK_FRIENDS: Array<FriendType> = [
-    {
-        name: "Sally Cooper",
-        email: "sallycooper@gmail.com",
-        phone: 4707825471, 
-        status: FriendStatus.close
-    },
-    {
-        name: "Judith Gonzalez",
-        email: "jgonzalez@gmail.com",
-        phone: 1231423123, 
-        status: FriendStatus.normal
-    },
-    {
-        name: "George Bryant",
-        email: "georgebryant@gmail.com",
-        phone: 3932920983, 
-        status: FriendStatus.normal
-    },
-    {
-        name: "Betty Wood",
-        email: "betty@gmail.com",
-        phone: 2730981029, 
-        status: FriendStatus.superClose
-    },
-    {
-        name: "Sally Cooper",
-        email: "sallycooper@gmail.com",
-        phone: 4707825471, 
-        status: FriendStatus.close
-    },
-    {
-        name: "Sally Cooper",
-        email: "sallycooper@gmail.com",
-        phone: 4707825471, 
-        status: FriendStatus.close
-    },
-    {
-        name: "Sally Cooper",
-        email: "sallycooper@gmail.com",
-        phone: 4707825471, 
-        status: FriendStatus.close
-    },
-    {
-        name: "Sally Cooper",
-        email: "sallycooper@gmail.com",
-        phone: 4707825471, 
-        status: FriendStatus.close
-    },
-    {
-        name: "Sally Cooper",
-        email: "sallycooper@gmail.com",
-        phone: 4707825471, 
-        status: FriendStatus.close
-    },
-    {
-        name: "Sally Cooper",
-        email: "sallycooper@gmail.com",
-        phone: 4707825471, 
-        status: FriendStatus.close
-    },
-]
+const LOAD_MORE_OFFSET = 200;
+const LOAD_DELAY = 500;
 
 export default function FriendsList() {
     const [filtersOpen, setFiltersOpen] = React.useState(false); 
     const [filters, setFilters] = React.useState<Filters>([]);
     const numFiltersSelected = filters.length; 
+
+    const numPerPage = 10;
+    const [friends, setFriends] = React.useState([]);
+    const friendListRef = React.useRef(null);
+    const [page, setPage] = React.useState(1); 
+    const [loading, setLoading] = React.useState(false);
+    const [hasMorePages, setHasMorePages] = React.useState(true);
+
+    React.useEffect(() => {
+        setLoading(true);
+        fetch(`/api/friends?page=${page}`, {method: 'GET'})
+            .then(res => res.json())
+            .then(res => {
+                setTimeout(() => setFriends([...friends, ...res]), LOAD_DELAY);
+            })
+            .catch(e => console.log(e))
+            .finally(() => setTimeout(() => setLoading(false), LOAD_DELAY));
+    // We don't want to query when the friends changes, just when the page changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
+
+    React.useEffect(() => {
+        const friendList = friendListRef.current;
+
+        const onScroll = function() {
+            const position = friendList.getBoundingClientRect();
+            if(hasMorePages && !loading && position.bottom - LOAD_MORE_OFFSET <= window.innerHeight) {
+                setPage(page + 1);
+            }
+        }
+        document.addEventListener('scroll', onScroll, {capture: true, passive: true});
+        return () => document.removeEventListener('scroll', onScroll);
+    }, [hasMorePages, loading, page, setPage]);
 
     return (
         <>
@@ -108,8 +82,9 @@ export default function FriendsList() {
                     onApply={setFilters}
                 />
             </div>}
-            <div>
-                {MOCK_FRIENDS.map((friend, i) => <Friend key={i} friend={friend}/>)}
+            <div ref={friendListRef}>
+                {friends.map((friend, i) => <Friend key={i} friend={friend}/>)}
+                {loading && new Array(numPerPage).fill(false).map((_, i) => <FriendShimmer key={'shimmer' + i}/>)}
             </div>
         </>
     );

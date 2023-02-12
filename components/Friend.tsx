@@ -25,7 +25,7 @@ function FriendStatusIcon({status}: {status: FriendStatus}) {
     }
 }
 
-export default function Friend({friend}: {friend: Friend}) {
+export default function Friend({friend}: {friend: FriendType}) {
     return <div className={styles.friend}>
         <div className={styles.header}>
             <span className={styles.name}>{friend.name}</span>
