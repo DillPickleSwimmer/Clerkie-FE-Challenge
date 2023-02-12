@@ -1,28 +1,7 @@
 .filters {
-    margin-bottom: 25px;
-
+    margin-bottom: 5px;
     display: flex; 
     align-items: stretch;
-}
-
-.filterButton {
-    padding: 8px 20px;
-    
-    display: inline-flex; 
-    align-items: center;
-
-    border: 1px solid var(--text-secondary);
-    border-radius: 30px;
-}
-
-.filterButton span {
-    margin-left: 10px;
-}
-
-.filterButton.selected, .filterButton.selected img {
-    background-color: var(--selected);
-    border-color: var(--selected);
-    color: var(--dark-background-text);
 }
 
 .clearAllFiltersWrapper {
@@ -43,6 +22,10 @@
 
 .clearAllFilters:disabled:hover {
     cursor: inherit;
+}
+
+.friendsList {
+    margin-top: 20px;
 }
 
 .noMore {

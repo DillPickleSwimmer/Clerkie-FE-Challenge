@@ -17,7 +17,6 @@ const LOAD_MORE_OFFSET = 200;
 const LOAD_DELAY = 500;
 
 export default function FriendsList() {
-    const [filtersOpen, setFiltersOpen] = React.useState(false); 
     const [filters, setFilters] = React.useState<Filters>([]);
     const numFiltersSelected = filters.length; 
 
@@ -61,13 +60,11 @@ export default function FriendsList() {
         <>
             <div className={styles.filters}>
                 <span>
-                    <button 
-                        className={[styles.filterButton, filtersOpen || numFiltersSelected > 0 ? styles.selected : undefined].join(" ")}
-                        onClick={() => setFiltersOpen(!filtersOpen)}
-                    >
-                        <Icon size={20} iconType={IconTypes.filter}/>
-                        {numFiltersSelected > 0 ? <span>{numFiltersSelected}</span> : undefined}
-                    </button>
+                    <FilterPopover 
+                        clearAllButtonStyle={styles.clearAllFilters} 
+                        initialFilters={filters}
+                        onApply={setFilters}
+                    />
                 </span>
                 <span className={styles.clearAllFiltersWrapper}>
                     <button 
@@ -79,15 +76,7 @@ export default function FriendsList() {
                     </button>
                 </span>
             </div>
-            {filtersOpen && <div>
-                <FilterPopover 
-                    clearAllButtonStyle={styles.clearAllFilters} 
-                    initialFilters={filters}
-                    onClose={() => setFiltersOpen(false)} 
-                    onApply={setFilters}
-                />
-            </div>}
-            <div ref={friendListRef}>
+            <div ref={friendListRef} className={styles.friendsList}>
                 {friends.map((friend, i) => <Friend key={i} friend={friend}/>)}
                 {loading && new Array(numPerPage).fill(false).map((_, i) => <FriendShimmer key={'shimmer' + i}/>)}
                 {!hasMorePages && <div className={styles.noMore}>No more friends ☹...</div>}

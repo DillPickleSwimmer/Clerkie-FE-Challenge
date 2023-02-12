@@ -2,6 +2,7 @@ import React from 'react';
 import Popover from '@/components/Popover';
 import {FriendStatus} from '@/components/Friend';
 import styles from '@/styles/FilterPopover.module.css';
+import Icon, { IconTypes } from '@/components/Icon';
 
 const FILTERS: Array<[FriendStatus, string]> = [
     [FriendStatus.close, "Close Friends"], 
@@ -12,14 +13,14 @@ export type Filters = Array<FriendStatus>
 type Props = {
     clearAllButtonStyle: string, 
     initialFilters: Filters
-    onClose: () => void, 
     onApply: (filters: Filters) => void 
 }
 
 // TODO: make the checkmark match
 
-export default function FilterPopover({clearAllButtonStyle, initialFilters, onClose, onApply}: Props) {
+export default function FilterPopover({clearAllButtonStyle, initialFilters, onApply}: Props) {
     const [filters, setFilters] = React.useState(initialFilters);
+    const [isOpen, setIsOpen] = React.useState(false);
 
     return (
         <Popover 
@@ -27,7 +28,17 @@ export default function FilterPopover({clearAllButtonStyle, initialFilters, onCl
                 title: 'Filter',
                 left: <button className={clearAllButtonStyle} disabled={filters.length === 0} onClick={() => setFilters([])}>Clear all</button>
             }} 
-            onClose={onClose}
+            initOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            onOpen={() => setIsOpen(true)}
+            trigger={
+                <button 
+                    className={[styles.filterButton, isOpen || initialFilters.length > 0 ? styles.selected : undefined].join(" ")}
+                >
+                    <Icon size={20} iconType={IconTypes.filter}/>
+                    {initialFilters.length > 0 ? <span>{initialFilters.length}</span> : undefined}
+                </button>
+            }
         >
             <>
                 <div className={styles.filterPopoverContent}>
@@ -54,7 +65,7 @@ export default function FilterPopover({clearAllButtonStyle, initialFilters, onCl
                     className={styles.applyButton}
                     onClick={() => {
                         onApply(filters);
-                        onClose();
+                        setIsOpen(false);
                     }}
                 >Apply</button>
             </>
