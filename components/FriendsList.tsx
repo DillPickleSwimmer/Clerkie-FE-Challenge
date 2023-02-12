@@ -3,6 +3,83 @@ import React from "react";
 import styles from '@/styles/FriendsList.module.css';
 import Icon from '@/components/Icon';
 import { IconTypes } from "@/components/Icon";
+import Friend from '@/components/Friend';
+
+enum FriendStatus {
+    normal, 
+    close,
+    superClose
+}
+
+type Friend = {
+    name: string, 
+    email: string, 
+    phone: number, 
+    status: FriendStatus
+}
+
+const MOCK_FRIENDS: Array<Friend> = [
+    {
+        name: "Sally Cooper",
+        email: "sallycooper@gmail.com",
+        phone: 4707825471, 
+        status: FriendStatus.close
+    },
+    {
+        name: "Judith Gonzalez",
+        email: "jgonzalez@gmail.com",
+        phone: 1231423123, 
+        status: FriendStatus.normal
+    },
+    {
+        name: "George Bryant",
+        email: "georgebryant@gmail.com",
+        phone: 3932920983, 
+        status: FriendStatus.normal
+    },
+    {
+        name: "Betty Wood",
+        email: "betty@gmail.com",
+        phone: 2730981029, 
+        status: FriendStatus.superClose
+    },
+    {
+        name: "Sally Cooper",
+        email: "sallycooper@gmail.com",
+        phone: 4707825471, 
+        status: FriendStatus.close
+    },
+    {
+        name: "Sally Cooper",
+        email: "sallycooper@gmail.com",
+        phone: 4707825471, 
+        status: FriendStatus.close
+    },
+    {
+        name: "Sally Cooper",
+        email: "sallycooper@gmail.com",
+        phone: 4707825471, 
+        status: FriendStatus.close
+    },
+    {
+        name: "Sally Cooper",
+        email: "sallycooper@gmail.com",
+        phone: 4707825471, 
+        status: FriendStatus.close
+    },
+    {
+        name: "Sally Cooper",
+        email: "sallycooper@gmail.com",
+        phone: 4707825471, 
+        status: FriendStatus.close
+    },
+    {
+        name: "Sally Cooper",
+        email: "sallycooper@gmail.com",
+        phone: 4707825471, 
+        status: FriendStatus.close
+    },
+]
 
 export default function FriendsList() {
     const [filtersOpen, setFiltersOpen] = React.useState(false); 
@@ -31,7 +108,7 @@ export default function FriendsList() {
                 </span>
             </div>
             <div>
-                ... friends go here
+                {MOCK_FRIENDS.map((friend, i) => <Friend key={i} friend={friend}/>)}
             </div>
         </>
     );

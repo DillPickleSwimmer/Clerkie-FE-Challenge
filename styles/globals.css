@@ -1,15 +1,19 @@
 :root {
   /* Global Theme Variables Here */
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-
-  --text-disabled: #D7D7D7; 
+  --text-primary: black;
+  --text-secondary: #ABABAB;
+  --text-disabled: var(--disabled); 
   --text-active: #3399FF;
 
   --dark-background: #091928; 
   --dark-background-text: white;
   
   --selected: #424242;
+  --disabled:  #D7D7D7;
+
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: var(--text-primary);
 }
 
 /* @media (prefers-color-scheme: dark) {
