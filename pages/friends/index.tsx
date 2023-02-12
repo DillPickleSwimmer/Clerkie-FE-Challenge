@@ -1,10 +1,13 @@
-
-import React from "react";
 import FriendsList from "@/components/FriendsList";
 import PageLayout from "@/components/PageLayout";
 
+import React from "react";
+
+// Friends list page
 export default function FriendsPage() {
-    return <PageLayout title="Friends">
-        <FriendsList />
-    </PageLayout>;
+  return (
+    <PageLayout title="Friends">
+      <FriendsList />
+    </PageLayout>
+  );
 }

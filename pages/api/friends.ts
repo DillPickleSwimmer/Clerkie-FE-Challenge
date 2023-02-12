@@ -1,4 +1,3 @@
-import { url } from 'inspector';
 import type { NextRequest } from 'next/server';
 
 import MOCK_FRIENDS from './mock_friends.json';
@@ -7,6 +6,7 @@ export const config = {
     runtime: 'edge',
 };
 
+// Get list of friends by page (with optional filter)
 export default function handler(req: NextRequest) {
     if(req.method === "GET") {
         const { searchParams } = new URL(req.url)
@@ -14,6 +14,7 @@ export default function handler(req: NextRequest) {
         const numPerPage = parseInt(searchParams.get('numPerPage'));
         const filters = JSON.parse(searchParams.get('filters'));
 
+        // If there are status filters, apply them
         const filteredFriends = filters.length > 0 ? MOCK_FRIENDS.filter(friend => filters.some(filter => filter === friend.status)) : MOCK_FRIENDS;
 
         return new Response(
