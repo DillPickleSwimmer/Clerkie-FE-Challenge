@@ -2,12 +2,12 @@
     height: 100vh;
     overflow: hidden;
 
-    display: flex; 
+    display: flex;
 }
 
 .layout main {
-    height: 100vh; 
-    overflow: scroll; 
+    height: 100vh;
+    overflow: scroll;
 
     flex-grow: 1;
 }

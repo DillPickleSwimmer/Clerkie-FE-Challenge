@@ -1,15 +1,15 @@
 .navbar {
-    width: 250px; 
-    height: 100vh; 
-    padding: 15px; 
+    width: 250px;
+    height: 100vh;
+    padding: 15px;
 
-    color: var(--dark-background-text); 
+    color: var(--dark-background-text);
 
-    background-color: var(--dark-background); 
+    background-color: var(--dark-background);
 }
 
 .title {
-    padding: 10px; 
+    padding: 10px;
     margin: 6px 0px;
 
     display: flex;
@@ -23,15 +23,15 @@
 }
 
 .nav {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     align-items: stretch;
 }
 
 .navLink {
-    padding: 10px; 
-    
-    display: flex; 
+    padding: 10px;
+
+    display: flex;
     align-items: center;
 
     border-radius: 6px;
@@ -46,5 +46,5 @@
 }
 
 .selectedLink {
-    background-color: var(--selected); 
+    background-color: var(--selected);
 }

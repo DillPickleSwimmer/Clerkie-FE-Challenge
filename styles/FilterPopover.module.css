@@ -2,32 +2,32 @@
     padding: 10px;
     margin-bottom: 25px;
 
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     justify-content: stretch;
 }
 
 .filterTitle {
     color: var(--text-secondary);
-    font-size: 14px; 
-}  
+    font-size: 14px;
+}
 
 .filter {
     margin-top: 25px;
 
-    display: flex; 
+    display: flex;
 }
 
 .filter > label {
     flex-grow: 1;
-    
+
     font-weight: 600;
 }
 
 .filter > input {
-    width: 19px; 
+    width: 19px;
     height: 19px;
-    
+
     border: 1px solid var(--text-secondary);
     border-radius: 0px;
 }
@@ -37,12 +37,12 @@
 }
 
 .applyButton {
-    width: 100%; 
+    width: 100%;
     height: 45px;
     padding: 0px;
 
     background-color: var(--selected);
-    border-radius: 6px; 
+    border-radius: 6px;
 
     color: var(--dark-background-text);
     text-align: center;
@@ -51,8 +51,8 @@
 
 .filterButton {
     padding: 8px 20px;
-    
-    display: inline-flex; 
+
+    display: inline-flex;
     align-items: center;
 
     border: 1px solid var(--text-secondary);
@@ -63,7 +63,8 @@
     margin-left: 10px;
 }
 
-.filterButton.selected, .filterButton.selected img {
+.filterButton.selected,
+.filterButton.selected img {
     background-color: var(--selected);
     border-color: var(--selected);
     color: var(--dark-background-text);

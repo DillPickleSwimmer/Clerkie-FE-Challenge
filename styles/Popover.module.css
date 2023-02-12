@@ -1,6 +1,6 @@
 .popover {
     position: absolute;
-    width: 320px; 
+    width: 320px;
 
     background-color: var(--background-color);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -11,7 +11,7 @@
     height: 60px;
     padding: 20px;
 
-    display: flex; 
+    display: flex;
     align-items: center;
 
     border-bottom: 1px solid var(--disabled);
@@ -19,7 +19,7 @@
 
 .header > * {
     flex-grow: 1;
-    display: flex; 
+    display: flex;
     justify-content: center;
     flex-basis: 0;
 }
@@ -35,7 +35,7 @@
 }
 
 .header > *:last-child {
-    display: flex; 
+    display: flex;
     justify-content: flex-end;
 }
 

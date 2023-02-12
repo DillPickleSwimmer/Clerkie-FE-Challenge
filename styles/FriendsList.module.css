@@ -1,6 +1,6 @@
 .filters {
     margin-bottom: 5px;
-    display: flex; 
+    display: flex;
     align-items: stretch;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .clearAllFilters {
-    color: var(--text-active); 
+    color: var(--text-active);
     font-size: 14px;
     font-weight: 600;
 }
@@ -32,7 +32,6 @@
     margin-top: 30px;
 
     text-align: center;
-    color: var(--text-secondary); 
+    color: var(--text-secondary);
     font-size: 14px;
 }
-

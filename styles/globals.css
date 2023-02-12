@@ -1,28 +1,28 @@
 :root {
-  /* Global Theme Variables Here */
-  --text-primary: black;
-  --text-secondary: #ABABAB;
-  --text-disabled: var(--disabled); 
-  --text-active: #3399FF;
+    /* Global Theme Variables Here */
+    --text-primary: black;
+    --text-secondary: #ababab;
+    --text-disabled: var(--disabled);
+    --text-active: #3399ff;
 
-  --background-color: white; 
-  --dark-background: #091928; 
-  --dark-background-text: white;
-  
-  --selected: #424242;
-  --disabled:  #D7D7D7;
+    --background-color: white;
+    --dark-background: #091928;
+    --dark-background-text: white;
 
-  --blue: #3399FF; 
-  --light-blue: #DFEFFF;
-  --green: #19B444;
-  --light-green: #DCFFE6;
+    --selected: #424242;
+    --disabled: #d7d7d7;
 
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
+    --blue: #3399ff;
+    --light-blue: #dfefff;
+    --green: #19b444;
+    --light-green: #dcffe6;
 
-  background-color: var(--background-color);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+
+    background-color: var(--background-color);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -32,28 +32,28 @@
 } */
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 button {
-  all: inherit; 
-  background-color: transparent; 
-  border: none; 
+    all: inherit;
+    background-color: transparent;
+    border: none;
 }
 
 button:hover {
-  cursor: pointer;
+    cursor: pointer;
 }

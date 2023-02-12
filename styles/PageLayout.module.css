@@ -1,17 +1,17 @@
 .layout {
-    height: 100vh; 
-    overflow: hidden; 
+    height: 100vh;
+    overflow: hidden;
 
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
 
 .header {
-    height: 80px; 
+    height: 80px;
     min-height: 80px;
-    padding: 0px 40px; 
+    padding: 0px 40px;
 
-    display: flex; 
+    display: flex;
     align-items: center;
 
     font-weight: 700;
@@ -20,12 +20,12 @@
 }
 
 .contentWrapper {
-    display: flex; 
+    display: flex;
     flex-direction: column;
     flex-grow: 1;
     align-items: center;
 
-    overflow: scroll; 
+    overflow: scroll;
 }
 
 .content {
