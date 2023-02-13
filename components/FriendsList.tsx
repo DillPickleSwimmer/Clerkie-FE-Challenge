@@ -56,6 +56,7 @@ export default function FriendsList() {
         const friendList = friendListRef.current;
 
         const onScroll = function () {
+            if (friendList == null) return;
             const position = friendList.getBoundingClientRect();
             if (hasMorePages && !loading && position.bottom - LOAD_MORE_OFFSET <= window.innerHeight) {
                 setPage(page + 1);

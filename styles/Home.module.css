@@ -1,0 +1,12 @@
+.home ol,
+.home ul {
+    margin: 8px 8px;
+}
+
+.home li {
+    list-style-position: inside;
+}
+
+.home div {
+    margin: 16px 0px;
+}

@@ -50,22 +50,24 @@ export default function FriendsPage() {
                         <FriendStatusIcon status={friend.status} />
                     </div>
                     <table className={styles.details}>
-                        <tr>
-                            <td>Gender: </td>
-                            <td>{friend.gender}</td>
-                        </tr>
-                        <tr>
-                            <td>Email: </td>
-                            <td>{friend.email}</td>
-                        </tr>
-                        <tr>
-                            <td>Phone: </td>
-                            <td>{friend.phone}</td>
-                        </tr>
-                        <tr>
-                            <td>Birthday: </td>
-                            <td>{friend.birthday.toDateString()}</td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>Gender: </td>
+                                <td>{friend.gender}</td>
+                            </tr>
+                            <tr>
+                                <td>Email: </td>
+                                <td>{friend.email}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone: </td>
+                                <td>{friend.phone}</td>
+                            </tr>
+                            <tr>
+                                <td>Birthday: </td>
+                                <td>{friend.birthday.toDateString()}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             )}
