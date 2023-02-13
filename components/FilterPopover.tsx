@@ -20,8 +20,6 @@ type Props = {
     onApply: (filters: Filters) => void;
 };
 
-// TODO: make the checkmark match
-
 // Shows a popover that lets the user set the filters
 function FilterPopover({ clearAllButtonStyle, initialFilters, onApply }: Props) {
     const [filters, setFilters] = React.useState(initialFilters);
