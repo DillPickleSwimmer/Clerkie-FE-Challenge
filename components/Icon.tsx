@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export enum IconTypes {
     filter,
@@ -6,6 +6,7 @@ export enum IconTypes {
     home,
     logo,
     close,
+    error,
 }
 
 type Props = {
@@ -15,29 +16,28 @@ type Props = {
 };
 
 // Display an icon SVG
-export default function Icon({
-    color = "currentColor",
-    size,
-    iconType,
-}: Props) {
+export default function Icon({ color = 'currentColor', size, iconType }: Props) {
     return (
         <svg
             width={size}
             height={size}
             viewBox={`0 0 ${size} ${size}`}
-            fill="none"
+            fill={iconType === IconTypes.error ? 'currentColor' : 'none'}
             stroke={color}
             xmlns="http://www.w3.org/2000/svg"
         >
-            {getIconSvg(iconType)}
+            {getIconSvg(iconType, size)}
         </svg>
     );
 }
 
-function getIconSvg(iconType: IconTypes): JSX.Element {
+function getIconSvg(iconType: IconTypes, size: number): JSX.Element {
+    let svgContent = null;
+    let initSize = null;
+
     switch (iconType) {
         case IconTypes.filter:
-            return (
+            svgContent = (
                 <>
                     <path
                         d="M6 3.5H18"
@@ -45,7 +45,12 @@ function getIconSvg(iconType: IconTypes): JSX.Element {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                     />
-                    <circle cx="3" cy="3.5" r="2.25" strokeWidth="1.5" />
+                    <circle
+                        cx="3"
+                        cy="3.5"
+                        r="2.25"
+                        strokeWidth="1.5"
+                    />
                     <path
                         d="M13 10.5H0.999999"
                         strokeWidth="2"
@@ -65,11 +70,17 @@ function getIconSvg(iconType: IconTypes): JSX.Element {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                     />
-                    <circle cx="3" cy="17.5" r="2.25" strokeWidth="1.5" />
+                    <circle
+                        cx="3"
+                        cy="17.5"
+                        r="2.25"
+                        strokeWidth="1.5"
+                    />
                 </>
             );
+            break;
         case IconTypes.friends:
-            return (
+            svgContent = (
                 <>
                     <circle
                         cx="16.7171"
@@ -82,15 +93,20 @@ function getIconSvg(iconType: IconTypes): JSX.Element {
                         strokeWidth="0.85"
                         strokeLinecap="round"
                     />
-                    <circle cx="10.3575" cy="8.92143" r="3.13139" />
+                    <circle
+                        cx="10.3575"
+                        cy="8.92143"
+                        r="3.13139"
+                    />
                     <path
                         d="M15.8048 17.9998C15.8048 14.9915 13.3661 12.5527 10.3577 12.5527C7.34939 12.5527 4.91064 14.9915 4.91064 17.9998"
                         strokeLinecap="round"
                     />
                 </>
             );
+            break;
         case IconTypes.home:
-            return (
+            svgContent = (
                 <>
                     <rect
                         x="4.43984"
@@ -115,8 +131,9 @@ function getIconSvg(iconType: IconTypes): JSX.Element {
                     />
                 </>
             );
+            break;
         case IconTypes.logo:
-            return (
+            svgContent = (
                 <>
                     <path
                         d="M20 10.0087C20 15.5381 15.4853 20.0087 9.97059 20.0087C8.11765 20.0087 6.39706 19.5087 4.91177 18.6263C4.76471 18.5969 4.52941 18.6557 4.42647 18.6851C3.85294 18.8175 3.17647 19.0087 2.91176 19.0822C1.97059 19.244 1.51471 19.1704 1.26471 19.0087C1.05882 18.8763 1.10294 18.7146 1.11765 18.6851C1.14706 18.5969 1.19118 18.5675 1.26471 18.4793C1.36765 18.3763 1.54412 18.244 1.83824 17.8469C2.22059 17.2587 2.30882 16.6116 2.29412 16.3469C0.852941 14.6263 0 12.4057 0 10.0087C0 4.47926 4.45588 0.0380859 9.97059 0.0380859C15.4853 0.0380859 20 4.47926 20 10.0087ZM9.97059 17.6263C14.1618 17.6263 17.6176 14.1999 17.6176 10.0087C17.6176 5.8175 14.1618 2.42044 9.97059 2.42044C5.77941 2.42044 2.39706 5.8175 2.39706 10.0087C2.39706 14.1999 5.77941 17.6263 9.97059 17.6263Z"
@@ -142,8 +159,9 @@ function getIconSvg(iconType: IconTypes): JSX.Element {
                     />
                 </>
             );
+            break;
         case IconTypes.close:
-            return (
+            svgContent = (
                 <>
                     <path
                         d="M4 4L13 13"
@@ -157,7 +175,31 @@ function getIconSvg(iconType: IconTypes): JSX.Element {
                     />
                 </>
             );
+            break;
+        case IconTypes.error:
+            initSize = 70;
+            svgContent = (
+                <>
+                    <path
+                        d="M3.6894531,62.6342773C5.7661133,65.9941406,9.3632812,68,13.3129883,68h43.3740234
+	c3.949707,0,7.546875-2.0058594,9.6235352-5.3657227c2.0761719-3.359375,2.2612305-7.4741211,0.4951172-11.0068359
+	L45.1186523,8.2539062C43.1899414,4.3964844,39.3129883,2,35,2s-8.1899414,2.3964844-10.1186523,6.2539062L3.1943359,51.6274414
+	C1.4282227,55.1601562,1.6132812,59.2749023,3.6894531,62.6342773z M4.9833984,52.5219727L26.6704102,9.1484375
+	C28.2822266,5.9248047,31.3959961,4,35,4s6.7177734,1.9248047,8.3295898,5.1484375l21.6870117,43.3735352
+	c1.4541016,2.9077148,1.3017578,6.2954102-0.4077148,9.0610352C62.8999023,64.3486328,59.9384766,66,56.6870117,66H13.3129883
+	c-3.2514648,0-6.2128906-1.6513672-7.921875-4.4169922C3.6816406,58.8173828,3.5292969,55.4296875,4.9833984,52.5219727z"
+                    />
+                    <path d="M34.9995117 47.3867188c2.6943359 0 4.8867188-2.1918945 4.8867188-4.8862305V23.1547852c0-2.6943359-2.1923828-4.8862305-4.8867188-4.8862305s-4.8862305 2.1918945-4.8862305 4.8862305v19.3457031C30.1132812 45.1948242 32.3051758 47.3867188 34.9995117 47.3867188zM32.1132812 23.1547852c0-1.5913086 1.2949219-2.8862305 2.8862305-2.8862305 1.5917969 0 2.8867188 1.2949219 2.8867188 2.8862305v19.3457031c0 1.5913086-1.2949219 2.8862305-2.8867188 2.8862305-1.5913086 0-2.8862305-1.2949219-2.8862305-2.8862305V23.1547852zM35 59.4702148c2.7568359 0 5-2.2431641 5-5s-2.2431641-5-5-5-5 2.2431641-5 5S32.2431641 59.4702148 35 59.4702148zM35 51.4702148c1.6542969 0 3 1.3457031 3 3s-1.3457031 3-3 3-3-1.3457031-3-3S33.3457031 51.4702148 35 51.4702148z" />
+                </>
+            );
+            break;
         default:
             return null;
     }
+
+    if (initSize != null) {
+        svgContent = <g transform={`scale(${size / initSize}, ${size / initSize})`}>{svgContent}</g>;
+    }
+
+    return svgContent;
 }

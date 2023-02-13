@@ -1,4 +1,5 @@
 import PageLayout from '@/components/PageLayout';
+import Error from '@/components/Error';
 
 import styles from '@/styles/FriendPage.module.css';
 import FriendType from '@/types/FriendType';
@@ -12,6 +13,7 @@ import Link from 'next/link';
 export default function FriendsPage() {
     const [loading, setLoading] = React.useState(false);
     const [friend, setFriend] = React.useState<FriendType | null>(null);
+    const [error, setError] = React.useState(false);
 
     const router = useRouter();
     const { id } = router.query;
@@ -27,10 +29,14 @@ export default function FriendsPage() {
                         birthday: new Date(res.birthday),
                     });
                 })
-                .catch((e) => console.log(e))
+                .catch((e) => setError(true))
                 .finally(() => setLoading(false));
         }
     }, [id]);
+
+    if (error) {
+        return <Error />;
+    }
 
     return (
         <PageLayout title="Friends">

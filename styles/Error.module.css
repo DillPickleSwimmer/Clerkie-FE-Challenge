@@ -1,0 +1,17 @@
+.error {
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: var(--light-red);
+    border: 1px solid var(--red);
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.errorIcon {
+    margin-right: 20px;
+
+    color: var(--red);
+}

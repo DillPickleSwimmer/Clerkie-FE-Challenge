@@ -4,6 +4,7 @@ import type { FriendType } from '@/types/FriendType';
 import Friend from '@/components/Friend';
 import FilterPopover from '@/components/FilterPopover';
 import FriendShimmer from '@/components/FriendShimmer';
+import Error from '@/components/Error';
 
 import styles from '@/styles/FriendsList.module.css';
 
@@ -20,6 +21,7 @@ export default function FriendsList() {
     const [page, setPage] = React.useState(1);
     const [loading, setLoading] = React.useState(false);
     const [hasMorePages, setHasMorePages] = React.useState(true);
+    const [error, setError] = React.useState(false);
 
     const friendListRef = React.useRef(null);
     // TODO: calculate this based on window height
@@ -43,7 +45,7 @@ export default function FriendsList() {
                     setHasMorePages(res.hasMorePages);
                 }, LOAD_DELAY);
             })
-            .catch((e) => console.log(e))
+            .catch((e) => setError(true))
             .finally(() => setTimeout(() => setLoading(false), LOAD_DELAY));
         // We don't want to query when the friends changes, just when the page changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,6 +76,10 @@ export default function FriendsList() {
         setPage(1);
         setFilters(filters);
     }, []);
+
+    if (error) {
+        return <Error />;
+    }
 
     return (
         <>

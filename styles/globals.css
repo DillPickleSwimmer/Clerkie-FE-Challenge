@@ -16,8 +16,10 @@
     --light-blue: #dfefff;
     --green: #19b444;
     --light-green: #dcffe6;
+    --red: rgb(255, 72, 72);
+    --light-red: rgb(248, 214, 214);
 
-    font-family: "Inter", sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 500;
     color: var(--text-primary);
