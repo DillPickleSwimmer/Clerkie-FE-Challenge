@@ -30,5 +30,7 @@
 
 .content {
     margin: 45px;
-    width: 1050px;
+    padding: 0px 10px;
+    width: 100%;
+    max-width: 1050px;
 }
