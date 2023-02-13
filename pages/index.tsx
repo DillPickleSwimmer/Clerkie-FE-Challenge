@@ -47,7 +47,7 @@ export default function Home() {
                         </li>
                         <li>
                             Add this url to the blocked requests:
-                            <i>https://clerkie-fe-challenge-a6onb8nts-dillpickleswimmer.vercel.app/api/friends*</i>
+                            <i>https://clerkie-fe-challenge-[id]-dillpickleswimmer.vercel.app/api/friends*</i>
                         </li>
                         <li>Errors should now occur if you try to use / load more friends </li>
                     </ol>
