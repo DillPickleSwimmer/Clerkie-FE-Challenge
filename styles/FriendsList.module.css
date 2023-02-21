@@ -1,5 +1,11 @@
-.filters {
+.topBar {
     margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters {
     display: flex;
     align-items: stretch;
 }

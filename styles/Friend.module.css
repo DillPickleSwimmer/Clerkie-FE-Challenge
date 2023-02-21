@@ -21,6 +21,10 @@
     font-weight: 700;
 }
 
+.searchName {
+    color: var(--blue);
+}
+
 .details {
     display: flex;
 

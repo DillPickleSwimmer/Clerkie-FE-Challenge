@@ -5,6 +5,7 @@ import Friend from '@/components/Friend';
 import FilterPopover from '@/components/FilterPopover';
 import FriendShimmer from '@/components/FriendShimmer';
 import Error from '@/components/Error';
+import SearchBar from '@/components/SearchBar';
 
 import styles from '@/styles/FriendsList.module.css';
 
@@ -21,16 +22,22 @@ export default function FriendsList() {
     const [loading, setLoading] = React.useState(false);
     const [hasMorePages, setHasMorePages] = React.useState(true);
     const [error, setError] = React.useState(false);
+    const [search, setSearch] = React.useState<string>('');
 
     const friendListRef = React.useRef(null);
 
     // whenever the page changes or the filter changes, we need to make another query for data
     React.useEffect(() => {
         setLoading(true);
-        fetch(`/api/friends?page=${page}&numPerPage=${DEFAULT_NUM_PAGES}&filters=${JSON.stringify(filters)}`, {
-            method: 'GET',
-            cache: 'no-cache',
-        })
+        fetch(
+            `/api/friends?page=${page}&numPerPage=${DEFAULT_NUM_PAGES}&filters=${JSON.stringify(
+                filters
+            )}&search=${encodeURIComponent(search)}`,
+            {
+                method: 'GET',
+                cache: 'no-cache',
+            }
+        )
             .then((res) => res.json())
             .then((res) => {
                 const newFriends = [...friends];
@@ -43,7 +50,7 @@ export default function FriendsList() {
             .finally(() => setLoading(false));
         // We don't want to query when the friends changes, just when the page changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page, DEFAULT_NUM_PAGES, filters]);
+    }, [page, DEFAULT_NUM_PAGES, filters, search]);
 
     // query for the next page of data when the friends list is scrolled almost to the bottom
     React.useEffect(() => {
@@ -65,6 +72,14 @@ export default function FriendsList() {
         };
     }, [hasMorePages, loading, page, setPage]);
 
+    const setSearchWrapped = (text: string) => {
+        setSearch(text);
+        setPage(1);
+        if (text.length > search.length && text.includes(search)) {
+            setFriends(friends.filter((friend) => friend.name.toLowerCase().includes(text.toLowerCase())));
+        }
+    };
+
     // when filter changes, reset the friends and page
     const setFiltersWrapped = React.useCallback((filters) => {
         setFriends([]);
@@ -78,23 +93,26 @@ export default function FriendsList() {
 
     return (
         <>
-            <div className={styles.filters}>
-                <span>
-                    <FilterPopover
-                        clearAllButtonStyle={styles.clearAllFilters}
-                        initialFilters={filters}
-                        onApply={setFiltersWrapped}
-                    />
-                </span>
-                <span className={styles.clearAllFiltersWrapper}>
-                    <button
-                        className={styles.clearAllFilters}
-                        disabled={filters.length === 0}
-                        onClick={() => setFiltersWrapped([])}
-                    >
-                        Clear all
-                    </button>
-                </span>
+            <div className={styles.topBar}>
+                <div className={styles.filters}>
+                    <span>
+                        <FilterPopover
+                            clearAllButtonStyle={styles.clearAllFilters}
+                            initialFilters={filters}
+                            onApply={setFiltersWrapped}
+                        />
+                    </span>
+                    <span className={styles.clearAllFiltersWrapper}>
+                        <button
+                            className={styles.clearAllFilters}
+                            disabled={filters.length === 0}
+                            onClick={() => setFiltersWrapped([])}
+                        >
+                            Clear all
+                        </button>
+                    </span>
+                </div>
+                <SearchBar onChange={setSearchWrapped} />
             </div>
             <div
                 ref={friendListRef}
@@ -104,6 +122,7 @@ export default function FriendsList() {
                     <Friend
                         key={friend.id + i}
                         friend={friend}
+                        search={search}
                     />
                 ))}
                 {loading &&
